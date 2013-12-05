@@ -40,11 +40,11 @@ app.configure(function _configureAll() {
   //app.engine('.html', ejs);
     
   app.use(express.favicon());
-  app.use(function setPackage(req, res, next) {
+  /*app.use(function setPackage(req, res, next) {
 	req.package = pack;
 	next();
 	//console.log('Hitting my app', next);
-  });
+  });*/
   //app.use(app.router);
   //app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.errorHandler());
@@ -52,7 +52,7 @@ app.configure(function _configureAll() {
   // app routes
   app.get('/', routes.index);
   app.get('/:hash', routes.redirect);
-  app.get(/\/c\/(https?:\/\/.+)/gi, routes.create);
+  app.get(/^\/c\/(https?:\/\/.+)/gi, routes.create);
 });
 
 // start the server
