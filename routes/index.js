@@ -15,7 +15,9 @@ var visit = function (url, title) {
 }
 
 module.exports.index = function (req, res) {
-    res.status(200).set('Content-Type', 'text/plain').end("Deux Huit Huit v" + req.package.version);
+	var content = "28hu.it v" + req.package.version + '\n';
+	content += '(c) Deux Huit Huit 2014 http://deuxhuithu.it';
+    res.status(200).set('Content-Type', 'text/plain').end(content);
 };
 
 module.exports.create = function (req, res) {
