@@ -52,7 +52,8 @@ app.configure(function _configureAll() {
   // app routes
   app.get('/', routes.index);
   app.get('/:hash', routes.redirect);
-  app.get(/\/c\/(https?:\/\/.+)/gi, routes.create);
+  // Do not use 'g' flag, it will make the route statefull (loop matching)
+  app.get(/\/c\/(https?:\/\/.+)/i, routes.create);
 });
 
 // start the server

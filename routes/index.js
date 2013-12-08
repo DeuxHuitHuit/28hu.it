@@ -4,6 +4,8 @@ var cuid = require('cuid');
 var ua = require('universal-analytics');
 var argv = require('optimist').argv;
 var redirectCode = !!argv.debug ? 200 : 301;
+var domainRegExp = /^https?:\/\/28hu.it/gi;
+var herokuRexExp = /^https?:\/\/url-28huit.herokuapp.com/gi;
 
 var visit = function (url, title) {
     var visitor = ua(argv.ua);
@@ -21,7 +23,7 @@ module.exports.index = function (req, res) {
 module.exports.create = function (req, res) {
     var url = req.params[0];
     
-    if (/^https?:\/\/28hu.it/gi.test(url)) {
+    if (domainRegExp.test(url) || herokuRexExp.test(url)) {
         res.status(500).set('Content-Type', 'text/plain').end('No recursive links');
         return;
     }
