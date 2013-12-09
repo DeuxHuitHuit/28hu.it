@@ -4,6 +4,8 @@ var cuid = require('cuid');
 var ua = require('universal-analytics');
 var argv = require('optimist').argv;
 var redirectCode = !!argv.debug ? 200 : 301;
+var domainRegExp = /^https?:\/\/28hu.it/i;
+var herokuRexExp = /^https?:\/\/url-28huit.herokuapp.com/i;
 
 var visit = function (url, title) {
     var visitor = ua(argv.ua);
@@ -16,14 +18,15 @@ var visit = function (url, title) {
 
 module.exports.index = function (req, res) {
 	var content = "28hu.it v" + req.package.version + '\n';
-	content += '(c) Deux Huit Huit 2014 http://deuxhuithu.it';
+	content += '(c) Deux Huit Huit 2014\n';
+	content += 'http://deuxhuithu.it';
     res.status(200).set('Content-Type', 'text/plain').end(content);
 };
 
 module.exports.create = function (req, res) {
     var url = req.params[0];
     
-    if (/^https?:\/\/28hu.it/gi.test(url)) {
+    if (domainRegExp.test(url) || herokuRexExp.test(url)) {
         res.status(500).set('Content-Type', 'text/plain').end('No recursive links');
         return;
     }
@@ -36,8 +39,6 @@ module.exports.create = function (req, res) {
             res.status(200).set('Content-Type', 'text/plain').end('http://28hu.it/' + result[0].hash);
         }
     });
-    //console.log('Why? ' + url);
-    //res.end('Hash: ' + cuid.slug());
     
     visit('create', url);
 };
