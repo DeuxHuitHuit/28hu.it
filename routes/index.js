@@ -18,7 +18,8 @@ var visit = function (url, title) {
 
 module.exports.index = function (req, res) {
 	var content = "28hu.it v" + req.package.version + '\n';
-	content += '(c) Deux Huit Huit 2014 http://deuxhuithu.it';
+	content += '(c) Deux Huit Huit 2014\n';
+	content += 'http://deuxhuithu.it';
     res.status(200).set('Content-Type', 'text/plain').end(content);
 };
 
