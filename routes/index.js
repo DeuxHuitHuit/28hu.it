@@ -4,8 +4,8 @@ var cuid = require('cuid');
 var ua = require('universal-analytics');
 var argv = require('optimist').argv;
 var redirectCode = !!argv.debug ? 200 : 301;
-var domainRegExp = /^https?:\/\/28hu.it/gi;
-var herokuRexExp = /^https?:\/\/url-28huit.herokuapp.com/gi;
+var domainRegExp = /^https?:\/\/28hu.it/i;
+var herokuRexExp = /^https?:\/\/url-28huit.herokuapp.com/i;
 
 var visit = function (url, title) {
     var visitor = ua(argv.ua);
@@ -38,8 +38,6 @@ module.exports.create = function (req, res) {
             res.status(200).set('Content-Type', 'text/plain').end('http://28hu.it/' + result[0].hash);
         }
     });
-    //console.log('Why? ' + url);
-    //res.end('Hash: ' + cuid.slug());
     
     visit('create', url);
 };
